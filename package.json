@@ -1,0 +1,23 @@
+{
+  "name": "fullstackopen-bodymassindex",
+  "version": "1.0.0",
+  "description": "Full stack open Exercise 9",
+  "main": "y",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HloniMotshoane/Fullstackopen-bodyMassIndex.git"
+  },
+  "author": "Kenny",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HloniMotshoane/Fullstackopen-bodyMassIndex/issues"
+  },
+  "homepage": "https://github.com/HloniMotshoane/Fullstackopen-bodyMassIndex#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
