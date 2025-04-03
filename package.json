@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "calculateBmi": "ts-node src/bmiCalculator.ts",
     "calculateExercises": "ts-node src/exerciseCalculator.ts",
-    "dev": "ts-node-dev index.ts"
+    "dev": "ts-node-dev index.ts",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -20,10 +21,17 @@
   },
   "homepage": "https://github.com/HloniMotshoane/Fullstackopen-bodyMassIndex#readme",
   "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "@stylistic/eslint-plugin": "^4.2.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/express": "^5.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "eslint": "^9.23.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.29.0"
   },
   "dependencies": {
     "express": "^5.1.0"

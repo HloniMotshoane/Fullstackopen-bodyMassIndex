@@ -1,4 +1,4 @@
-interface Result {
+export interface ExerciseResult {
     periodLength: number;
     trainingDays: number;
     success: boolean;
@@ -7,24 +7,22 @@ interface Result {
     target: number;
     average: number;
 }
-const calculateExercises = (dailyExercises: number[], target: number): Result => {
-    const periodLength = dailyExercises.length;
-    const trainingDays = dailyExercises.filter(day => day > 0).length;
-    const average = dailyExercises.reduce((sum, day) => sum + day, 0) / periodLength;
 
+export const calculateExercises = (daily_exercises: number[], target: number): ExerciseResult => {
+    const periodLength = daily_exercises.length;
+    const trainingDays = daily_exercises.filter(day => day > 0).length;
+    const totalHours = daily_exercises.reduce((sum, hours) => sum + hours, 0);
+    const average = totalHours / periodLength;
     const success = average >= target;
-    let rating: number;
-    let ratingDescription: string;
 
+    let rating = 1;
+    let ratingDescription = "bad";
     if (average >= target) {
         rating = 3;
-        ratingDescription = "Great job, keep it up!";
-    } else if (average >= target * 0.75) {
+        ratingDescription = "great job!";
+    } else if (average >= target * 0.8) {
         rating = 2;
-        ratingDescription = "Not too bad but could be better";
-    } else {
-        rating = 1;
-        ratingDescription = "You need to put in more effort!";
+        ratingDescription = "not too bad but could be better";
     }
 
     return {
@@ -34,14 +32,6 @@ const calculateExercises = (dailyExercises: number[], target: number): Result =>
         rating,
         ratingDescription,
         target,
-        average
+        average,
     };
-}
-const target = Number(process.argv[2]);
-const exercises = process.argv.slice(3).map(Number);
-
-if (!target || exercises.some(isNaN)) {
-    console.log("Please provide a valid target and daily exercise hours.");
-} else {
-    console.log(calculateExercises(exercises, target));
-}
+};
