@@ -1,10 +1,16 @@
 import express, { Request, Response } from 'express';
 import { calculateBmi } from './src/bmiCalculator';
 import { calculateExercises } from './src/exerciseCalculator';
+import { z } from 'zod';
 
 const app = express();
 app.use(express.json());
 const PORT = 3003;
+
+const exerciseValidator = z.object({
+  daily_exercises: z.array(z.number()),
+  target: z.number(),
+});
 
 app.get('/hello', (_req: Request, res: Response): void => {
   res.send('Hello Full Stack!');
@@ -23,28 +29,19 @@ app.get('/bmi', (req: Request, res: Response): void => {
   res.json({ weight, height, bmi });
 });
 
-app.post('/exercises', (req, res): void => {
-  const { daily_exercises, target } = req.body;
+app.post('/exercises', (req: express.Request, res: express.Response): void => {
+  try {
+    const parsedBody = exerciseValidator.parse(req.body);
+    const { daily_exercises, target } = parsedBody;
 
-  if (!daily_exercises || target === undefined) {
-    res.status(400).json({ error: 'parameters missing' });
-    return;
-  }
+    const result = calculateExercises(daily_exercises, target);
+    res.json(result);
 
-  if (
-    !Array.isArray(daily_exercises) ||
-    !daily_exercises.every((n) => typeof n === 'number') ||
-    typeof target !== 'number'
-  ) {
+  } catch (error) {
     res.status(400).json({ error: 'malformatted parameters' });
-    return;
   }
-
-  const result = calculateExercises(daily_exercises, target);
-  res.json(result);
 });
 
-
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log('Server running on port 3003');
 });
